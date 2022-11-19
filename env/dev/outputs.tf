@@ -10,3 +10,7 @@ output "vnet_name" {
 output "nsg_name" {
   value = module.nsg.nsg_name
 }
+
+output "vm_name" {
+  value = module.vm.vm_name
+}
