@@ -3,6 +3,8 @@
 This includes of the following resources:
 - Resource group
 - Virtual network
+- Network interface
+- Network security group
 
 
 ## SystemConfiguration

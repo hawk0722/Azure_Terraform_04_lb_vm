@@ -6,3 +6,7 @@ output "rg_name" {
 output "vnet_name" {
   value = module.vnet.vnet_name
 }
+
+output "nsg_name" {
+  value = module.nsg.nsg_name
+}
