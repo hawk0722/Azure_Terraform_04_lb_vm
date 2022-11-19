@@ -14,3 +14,7 @@ output "nsg_name" {
 output "vm_name" {
   value = module.vm.vm_name
 }
+
+output "lbe_name" {
+  value = module.lbe.lbe_name
+}

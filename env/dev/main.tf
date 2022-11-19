@@ -47,3 +47,15 @@ module "nsg" {
   rg_name  = module.rg.rg_name
   s_pri_id = module.vnet.s_pri_id
 }
+
+module "lbe" {
+  source = "../../modules/lbe"
+
+  location = var.location
+  env      = var.env
+  code     = var.code
+  cidr     = var.cidr
+
+  rg_name = module.rg.rg_name
+  vm_nic  = module.vm.vm_nic
+}
