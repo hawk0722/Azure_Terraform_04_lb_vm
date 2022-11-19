@@ -4,6 +4,7 @@ This includes of the following resources:
 - Resource group
 - Virtual network
 - Network interface
+- Virtual machine with IIS
 - Network security group
 
 

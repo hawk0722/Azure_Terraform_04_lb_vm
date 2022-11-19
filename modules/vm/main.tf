@@ -33,3 +33,18 @@ resource "azurerm_windows_virtual_machine" "vm" {
     version   = var.vm_img_version
   }
 }
+
+resource "azurerm_virtual_machine_extension" "vm_extension" {
+  name                 = "vm_extension_install_iis"
+  virtual_machine_id   = azurerm_windows_virtual_machine.vm.id
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomExtension"
+  type_handler_version = "2.0"
+
+  settings = <<SETTINGS
+ {
+  "commandToExecute": "powershell -Command -ExecutionPolicy RemoteSigned Install-WindowsFeature -Name Web-Server -IncludeManagementTools -IncludeAllSubFeature"
+ }
+SETTINGS
+
+}
