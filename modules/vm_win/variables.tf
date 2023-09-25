@@ -1,12 +1,9 @@
-# common
 variable "location" {}
 variable "env" {}
 variable "code" {}
-
-# vnet
 variable "cidr" {}
-
-# vm_win
+variable "rg_name" {}
+variable "s_pri_id" {}
 variable "vm_win_size" {}
 variable "vm_win_login_username" {}
 variable "vm_win_login_password" {}

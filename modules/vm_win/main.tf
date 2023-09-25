@@ -14,9 +14,9 @@ resource "azurerm_windows_virtual_machine" "vm" {
   name                = "vm-${var.env}-${var.code}"
   resource_group_name = var.rg_name
   location            = var.location
-  size                = var.vm_size
-  admin_username      = var.vm_login_username
-  admin_password      = var.vm_login_password
+  size                = var.vm_win_size
+  admin_username      = var.vm_win_login_username
+  admin_password      = var.vm_win_login_password
   network_interface_ids = [
     azurerm_network_interface.nic.id,
   ]
@@ -27,10 +27,10 @@ resource "azurerm_windows_virtual_machine" "vm" {
   }
 
   source_image_reference {
-    publisher = var.vm_img_publisher
-    offer     = var.vm_img_offer
-    sku       = var.vm_img_sku
-    version   = var.vm_img_version
+    publisher = var.vm_win_img_publisher
+    offer     = var.vm_win_img_offer
+    sku       = var.vm_win_img_sku
+    version   = var.vm_win_img_version
   }
 }
 
@@ -39,7 +39,7 @@ resource "azurerm_virtual_machine_extension" "vm_extension" {
   virtual_machine_id   = azurerm_windows_virtual_machine.vm.id
   publisher            = "Microsoft.Compute"
   type                 = "CustomScriptExtension"
-  type_handler_version = "1.10"
+  type_handler_version = "2.0"
 
   settings = <<SETTINGS
  {
