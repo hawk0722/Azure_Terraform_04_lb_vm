@@ -3,4 +3,4 @@ variable "env" {}
 variable "code" {}
 variable "cidr" {}
 variable "rg_name" {}
-variable "vm_nic" {}
+variable "vm_win_nic" {}

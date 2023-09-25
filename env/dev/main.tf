@@ -17,7 +17,7 @@ module "vnet" {
   rg_name = module.rg.rg_name
 }
 
-module "vm" {
+module "vm_win" {
   source = "../../modules/vm_win"
 
   location              = var.location
@@ -56,6 +56,6 @@ module "lbe" {
   code     = var.code
   cidr     = var.cidr
 
-  rg_name = module.rg.rg_name
-  vm_nic  = module.vm.vm_nic
+  rg_name    = module.rg.rg_name
+  vm_win_nic = module.vm_win.vm_win_nic
 }

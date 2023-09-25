@@ -11,8 +11,8 @@ output "nsg_name" {
   value = module.nsg.nsg_name
 }
 
-output "vm_name" {
-  value = module.vm.vm_name
+output "vm_win_name" {
+  value = module.vm_win.vm_win_name
 }
 
 output "lbe_name" {

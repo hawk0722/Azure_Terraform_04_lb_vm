@@ -22,9 +22,9 @@ resource "azurerm_lb_backend_address_pool" "lbe_backend_pool" {
 }
 
 # Connect backend pool and nic of vm.
-resource "azurerm_network_interface_backend_address_pool_association" "lbe_backend_pool_association" {
-  network_interface_id    = var.vm_nic
-  ip_configuration_name   = "vm-${var.env}-${var.code}-ip-configuration"
+resource "azurerm_network_interface_backend_address_pool_association" "lbe_backend_pool_association_win" {
+  network_interface_id    = var.vm_win_nic
+  ip_configuration_name   = "vm-win-${var.env}-${var.code}-ip-configuration"
   backend_address_pool_id = azurerm_lb_backend_address_pool.lbe_backend_pool.id
 }
 
