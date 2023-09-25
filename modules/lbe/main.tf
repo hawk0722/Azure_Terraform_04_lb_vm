@@ -21,12 +21,20 @@ resource "azurerm_lb_backend_address_pool" "lbe_backend_pool" {
   name            = "lbe-${var.env}-${var.code}-backend-pool"
 }
 
-# Connect backend pool and nic of vm.
+# Connect backend pool and nic of win vm.
 resource "azurerm_network_interface_backend_address_pool_association" "lbe_backend_pool_association_win" {
   network_interface_id    = var.vm_win_nic
   ip_configuration_name   = "vm-win-${var.env}-${var.code}-ip-configuration"
   backend_address_pool_id = azurerm_lb_backend_address_pool.lbe_backend_pool.id
 }
+
+# Connect backend pool and nic of linux vm.
+resource "azurerm_network_interface_backend_address_pool_association" "lbe_backend_pool_association_linux" {
+  network_interface_id    = var.vm_linux_nic
+  ip_configuration_name   = "vm-linux-${var.env}-${var.code}-ip-configuration"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.lbe_backend_pool.id
+}
+
 
 resource "azurerm_lb_probe" "lbe_probe" {
   loadbalancer_id = azurerm_lb.lbe.id
