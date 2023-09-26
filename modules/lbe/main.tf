@@ -9,6 +9,7 @@ resource "azurerm_lb" "lbe" {
   name                = "lbe-${var.env}-${var.code}"
   location            = var.location
   resource_group_name = var.rg_name
+  sku                 = "Standard"
 
   frontend_ip_configuration {
     name                 = "pip-${var.env}-${var.code}-lbe-configuration"
