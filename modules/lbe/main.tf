@@ -3,6 +3,7 @@ resource "azurerm_public_ip" "pip" {
   location            = var.location
   resource_group_name = var.rg_name
   allocation_method   = "Static"
+  sku                 = "Standard"
 }
 
 resource "azurerm_lb" "lbe" {
@@ -17,29 +18,23 @@ resource "azurerm_lb" "lbe" {
   }
 }
 
-resource "azurerm_lb_backend_address_pool" "lbe_backend_pool_win" {
+resource "azurerm_lb_backend_address_pool" "lbe_backend_pool" {
   loadbalancer_id = azurerm_lb.lbe.id
-  name            = "lbe-${var.env}-${var.code}-backend-pool-win"
+  name            = "lbe-${var.env}-${var.code}-backend-pool"
 }
 
 # Connect backend pool and nic of win vm.
 resource "azurerm_network_interface_backend_address_pool_association" "lbe_backend_pool_association_win" {
   network_interface_id    = var.vm_win_nic
   ip_configuration_name   = "vm-win-${var.env}-${var.code}-ip-configuration"
-  backend_address_pool_id = azurerm_lb_backend_address_pool.lbe_backend_pool_win.id
-}
-
-
-resource "azurerm_lb_backend_address_pool" "lbe_backend_pool_linux" {
-  loadbalancer_id = azurerm_lb.lbe.id
-  name            = "lbe-${var.env}-${var.code}-backend-pool-linux"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.lbe_backend_pool.id
 }
 
 # Connect backend pool and nic of linux vm.
 resource "azurerm_network_interface_backend_address_pool_association" "lbe_backend_pool_association_linux" {
   network_interface_id    = var.vm_linux_nic
   ip_configuration_name   = "vm-linux-${var.env}-${var.code}-ip-configuration"
-  backend_address_pool_id = azurerm_lb_backend_address_pool.lbe_backend_pool_linux.id
+  backend_address_pool_id = azurerm_lb_backend_address_pool.lbe_backend_pool.id
 }
 
 
@@ -49,24 +44,13 @@ resource "azurerm_lb_probe" "lbe_probe" {
   port            = 80
 }
 
-resource "azurerm_lb_rule" "lbe_rule_win" {
+resource "azurerm_lb_rule" "lbe_rule" {
   loadbalancer_id                = azurerm_lb.lbe.id
-  name                           = "lbe-rule-win"
+  name                           = "lbe-rule"
   protocol                       = "Tcp"
   frontend_port                  = 80
   backend_port                   = 80
   frontend_ip_configuration_name = "pip-${var.env}-${var.code}-lbe-configuration"
-  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.lbe_backend_pool_win.id]
-  probe_id                       = azurerm_lb_probe.lbe_probe.id
-}
-
-resource "azurerm_lb_rule" "lbe_rule_linux" {
-  loadbalancer_id                = azurerm_lb.lbe.id
-  name                           = "lbe-rule-linux"
-  protocol                       = "Tcp"
-  frontend_port                  = 80
-  backend_port                   = 80
-  frontend_ip_configuration_name = "pip-${var.env}-${var.code}-lbe-configuration"
-  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.lbe_backend_pool_linux.id]
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.lbe_backend_pool.id]
   probe_id                       = azurerm_lb_probe.lbe_probe.id
 }
