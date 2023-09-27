@@ -1,0 +1,13 @@
+variable "location" {}
+variable "env" {}
+variable "code" {}
+variable "cidr" {}
+variable "rg_name" {}
+variable "s_pri_id" {}
+variable "vm_linux_size" {}
+variable "vm_linux_admin_username" {}
+variable "vm_linux_admin_password" {}
+variable "vm_linux_img_publisher" {}
+variable "vm_linux_img_offer" {}
+variable "vm_linux_img_sku" {}
+variable "vm_linux_img_version" {}

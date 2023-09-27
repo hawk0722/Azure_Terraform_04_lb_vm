@@ -15,6 +15,10 @@ output "vm_win_name" {
   value = module.vm_win.vm_win_name
 }
 
+output "vm_linux_name" {
+  value = module.vm_linux.vm_linux_name
+}
+
 output "lbe_name" {
   value = module.lbe.lbe_name
 }
