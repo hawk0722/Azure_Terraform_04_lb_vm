@@ -21,7 +21,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
     azurerm_network_interface.nic.id,
   ]
 
-  custom_data                     = filebase64("cloud-init.yml")
+  custom_data                     = filebase64("../../env/dev/cloud-init.yml")
   disable_password_authentication = false
 
   os_disk {
