@@ -10,15 +10,6 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 
-locals {
-  custom_data = <<EOF
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get -y dist-upgrade
-    sudo apt install -y nginx
-    EOF
-}
-
 resource "azurerm_linux_virtual_machine" "vm" {
   name                = "vm-linux-${var.env}-${var.code}"
   resource_group_name = var.rg_name
@@ -30,6 +21,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
     azurerm_network_interface.nic.id,
   ]
 
+  custom_data                     = filebase64("cloud-init.yml")
   disable_password_authentication = false
 
   os_disk {
@@ -44,5 +36,4 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = var.vm_linux_img_version
   }
 
-  custom_data = base64encode(local.custom_data)
 }
